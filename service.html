@@ -13,7 +13,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-  <title>Guarder</title>
+  <title>AlugaSC</title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -26,14 +26,6 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
-  <style>
-    /* Add some basic styling to our map container */
-    #map {
-      width: 800px;
-      height: 600px;
-      border: 1px solid #ccc;
-    }
-  </style>
 </head>
 
 <body class="sub_page">
@@ -62,7 +54,7 @@
             <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
               <ul class="navbar-nav  ">
                 <li class="nav-item active">
-                  <a class="nav-link" href="index.html">Inicio <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="home.html">Inicio <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="about.html"> Sobre</a>
@@ -81,93 +73,71 @@
     </header>
     <!-- end header section -->
   </div>
-
-  <div id="map"></div>
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
-  <script>
-    // Initialize the map
-    function initMap() {
-      var map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: -27.5956, lng: -48.5497 }, // Santa Catarina, Brazil
-        zoom: 7
-      });
-
-      // Add a marker for the state capital, Florianópolis
-      var marker = new google.maps.Marker({
-        position: { lat: -27.5962, lng: -48.5503 },
-        map: map,
-        title: 'Florianópolis'
-      });
-    }
-  </script>
-  <!-- info section -->
-  <section class="info_section ">
+  <section class="about_section layout_padding">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
-          <div class="info_logo">
-            <a class="navbar-brand" href="index.html">
-              <span>
-                Guarder
-              </span>
-            </a>
+        <div class="col-md-6 px-0">
+          <div class="img_container">
+            <div class="img-box">
+              <img src="images/fita.png" alt="fita zebrada" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 px-0">
+          <div class="detail-box">
+            <div class="heading_container ">
+              <h2>
+                Em Obras!
+              </h2>
+            </div>
             <p>
-              dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam, quisdotempor incididunt r
+              Parte em desenvolvimento.
             </p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+  <!-- info section -->
+  <section class="info_section ">
+    <div class="container">
+      <div class="row" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
         <div class="col-md-3">
-          <div class="info_links">
-            <h5>
-              Useful Link
-            </h5>
-            <ul>
-              <li>
-                <a href="">
-                  dolor sit amet, consectetur
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  magna aliqua. Ut enim ad
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  minim veniam,
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  quisdotempor incididunt r
-                </a>
-              </li>
-            </ul>
+          <div class="info_logo">
+            <a class="navbar-brand" href="home.html">
+              <span>
+                AlugaSC
+              </span>
+            </a>
+            <p>
+              As melhores acomodações de toda Santa Catarina para você.
+            </p>
           </div>
         </div>
+      
         <div class="col-md-3">
           <div class="info_info">
             <h5>
-              Contact Us
+              Contatos
             </h5>
           </div>
           <div class="info_contact">
             <a href="" class="">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               <span>
-                Lorem ipsum dolor sit amet,
+                R. Bernardino José de Oliveira, 81 - Badenfurt, Blumenau - SC, 89070-270
               </span>
             </a>
             <a href="" class="">
               <i class="fa fa-phone" aria-hidden="true"></i>
               <span>
-                Call : +01 1234567890
+                Call : +55 (47) 99231-9089
               </span>
             </a>
             <a href="" class="">
               <i class="fa fa-envelope" aria-hidden="true"></i>
               <span>
-                demo@gmail.com
+                mariane.correa.souza@gmail.com
               </span>
             </a>
           </div>
@@ -175,25 +145,25 @@
         <div class="col-md-3">
           <div class="info_form ">
             <h5>
-              Newsletter
+              Receba Notificações
             </h5>
             <form action="#">
-              <input type="email" placeholder="Enter your email">
+              <input type="email" placeholder="Coloque o seu Email">
               <button>
-                Subscribe
+                Inscreva-se
               </button>
             </form>
             <div class="social_box">
-              <a href="">
+              <a href="https://www.facebook.com">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
               </a>
-              <a href="">
+              <a href="https://x.com">
                 <i class="fa fa-twitter" aria-hidden="true"></i>
               </a>
-              <a href="">
+              <a href="https://www.youtube.com">
                 <i class="fa fa-youtube" aria-hidden="true"></i>
               </a>
-              <a href="">
+              <a href="https://www.instagram.com/mari_correa90/?igsh=MTQ2bDFpaHhkMnVoNw%3D%3D">
                 <i class="fa fa-instagram" aria-hidden="true"></i>
               </a>
             </div>
@@ -211,8 +181,7 @@
   <!-- footer section -->
   <footer class="container-fluid footer_section">
     <p>
-      &copy; <span id="currentYear"></span> All Rights Reserved. Design by
-      <a href="https://html.design/">Free Html Templates</a>
+      &copy; <span id="currentYear"></span> All Rights Reserved. Design by Schauer
     </p>
   </footer>
   <!-- footer section -->
@@ -220,7 +189,6 @@
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/custom.js"></script>
-  <script src="js/map.js"></script>
 </body>
 
 </html>

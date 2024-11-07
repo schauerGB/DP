@@ -13,7 +13,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
-  <title>AlugaSC</title>
+  <title>Mapa - AlugaSC</title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -26,11 +26,59 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .search-container {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+
+    .filter-select {
+      width: 200px;
+    }
+
+    .leaflet-control-zoom a {
+      width: 36px;
+      height: 36px;
+      line-height: 36px;
+      background-color: #ffffff;
+      /* Fundo branco, sem amarelo */
+      color: #333;
+      /* Cor do ícone */
+      border-radius: 4px;
+      border: 1px solid #cccccc;
+      /* Adiciona uma borda suave */
+      transition: background-color 0.3s ease;
+    }
+
+    .leaflet-control-zoom a:hover {
+      background-color: #f8f8f8;
+      /* Tom de cinza muito claro no hover */
+      color: #007bff;
+    }
+  </style>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 
 <body class="sub_page">
   <div class="hero_area">
-    <!-- header section strats -->
+    <!-- header section starts -->
     <div class="hero_bg_box">
       <div class="img-box">
         <img src="images/pordosol.png" alt="por do sol">
@@ -53,17 +101,20 @@
 
             <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
               <ul class="navbar-nav  ">
-                <li class="nav-item active">
-                  <a class="nav-link" href="home.html">Inicio <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                  <a class="nav-link" href="home.html">Inicio</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="about.html"> Sobre</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="service.html"> Mapa </a>
+                <li class="nav-item active">
+                  <a class="nav-link" href="service.html"> Mapa <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="contact.html">Contato</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="login.html">Login</a>
                 </li>
               </ul>
             </div>
@@ -73,31 +124,104 @@
     </header>
     <!-- end header section -->
   </div>
+
   <section class="about_section layout_padding">
     <div class="container">
       <div class="row">
-        <div class="col-md-6 px-0">
-          <div class="img_container">
-            <div class="img-box">
-              <img src="images/fita.png" alt="fita zebrada" />
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 px-0">
+        <div class="col-12">
           <div class="detail-box">
-            <div class="heading_container ">
-              <h2>
-                Em Obras!
-              </h2>
+            <div class="heading_container">
+              <h2>Mapa de Aluguéis em Santa Catarina</h2>
             </div>
-            <p>
-              Parte em desenvolvimento.
-            </p>
+
+            <div class="search-container">
+              <input type="text" class="form-control search-input" placeholder="Busque por cidade, bairro ou endereço">
+              <select class="form-control filter-select">
+                <option>Todos os Filtros</option>
+                <option>Apartamento</option>
+                <option>Casa</option>
+                <option>Kitnet</option>
+                <option>Quarto</option>
+              </select>
+              <button class="btn btn-primary">Buscar</button>
+            </div>
+
+            <div id="map"></div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    // Inicializar o mapa
+    var map = L.map('map').setView([-27.5, -49], 7); // Coordenadas centrais de Santa Catarina
+
+    // Adicionar camada de mapa do OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Adicionar marcadores de exemplo para algumas cidades de SC
+    var cities = [
+      { name: 'Florianópolis', lat: -27.5954, lon: -48.5569, type: 'Apartamento' },
+      { name: 'Blumenau', lat: -26.9190, lon: -49.0663, type: 'Casa' },
+      { name: 'Joinville', lat: -26.3031, lon: -49.0661, type: 'Kitnet' },
+      { name: 'Chapecó', lat: -27.1004, lon: -52.6148, type: 'Quarto' },
+      { name: 'Criciúma', lat: -28.6786, lon: -49.3694, type: 'Apartamento' }
+    ];
+
+    // Função para adicionar marcadores
+    function addMarkers(filterType = 'Todos os Filtros') {
+      // Limpar marcadores existentes
+      map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+          map.removeLayer(layer);
+        }
+      });
+
+      // Adicionar novos marcadores
+      cities.forEach(function (city) {
+        if (filterType === 'Todos os Filtros' || city.type === filterType) {
+          L.marker([city.lat, city.lon])
+            .bindPopup(`
+                    <b>${city.name}</b><br>
+                    Tipo: ${city.type}<br>
+                    <a href="#">Ver Imóveis</a>
+                `)
+            .addTo(map);
+        }
+      });
+    }
+
+    // Adicionar marcadores iniciais
+    addMarkers();
+
+    // Adicionar evento de filtro
+    document.querySelector('.btn-primary').addEventListener('click', function () {
+      var filterSelect = document.querySelector('.filter-select');
+      addMarkers(filterSelect.value);
+    });
+
+    // Adicionar evento de pesquisa
+    document.querySelector('.search-input').addEventListener('input', function (e) {
+      var searchTerm = e.target.value.toLowerCase();
+
+      // Filtrar marcadores baseado no termo de busca
+      map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+          var cityName = layer.getPopup().getContent().toLowerCase();
+          if (cityName.includes(searchTerm)) {
+            layer.addTo(map);
+          } else {
+            map.removeLayer(layer);
+          }
+        }
+      });
+    });
+  </script>
   <!-- info section -->
   <section class="info_section ">
     <div class="container">
@@ -114,7 +238,7 @@
             </p>
           </div>
         </div>
-      
+
         <div class="col-md-3">
           <div class="info_info">
             <h5>
@@ -173,22 +297,7 @@
     </div>
   </section>
 
-  <!-- end info_section -->
-
-
-
-
   <!-- footer section -->
   <footer class="container-fluid footer_section">
     <p>
-      &copy; <span id="currentYear"></span> All Rights Reserved. Design by Schauer
-    </p>
-  </footer>
-  <!-- footer section -->
-
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/custom.js"></script>
-</body>
-
-</html>
+      &copy; <span id="currentYear"></span>

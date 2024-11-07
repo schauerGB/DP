@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Login - AlugaSC</title>
+  
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="text-center">Login</h2>
+          </div>
+          <div class="card-body">
+            <form id="loginForm">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" class="form-control" id="password" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+            </form>
+            <div class="text-center mt-3">
+              <p>Não tem uma conta? <a href="#" id="showCadastro">Cadastre-se</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3" id="cadastroForm" style="display:none;">
+          <div class="card-header">
+            <h2 class="text-center">Cadastro</h2>
+          </div>
+          <div class="card-body">
+            <form id="formCadastro">
+              <div class="form-group">
+                <label for="nomeCompleto">Nome Completo</label>
+                <input type="text" class="form-control" id="nomeCompleto" required>
+              </div>
+              <div class="form-group">
+                <label for="emailCadastro">Email</label>
+                <input type="email" class="form-control" id="emailCadastro" required>
+              </div>
+              <div class="form-group">
+                <label for="senhaCadastro">Senha</label>
+                <input type="password" class="form-control" id="senhaCadastro" required>
+              </div>
+              <div class="form-group">
+                <label for="confirmSenha">Confirmar Senha</label>
+                <input type="password" class="form-control" id="confirmSenha" required>
+              </div>
+              <button type="submit" class="btn btn-success btn-block">Cadastrar</button>
+            </form>
+            <div class="text-center mt-3">
+              <p>Já tem uma conta? <a href="#" id="showLogin">Fazer Login</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('showCadastro').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('cadastroForm').style.display = 'block';
+    });
+
+    document.getElementById('showLogin').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('cadastroForm').style.display = 'none';
+      document.getElementById('loginForm').style.display = 'block';
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      window.location.href = 'logado.html';
+    });
+
+    document.getElementById('formCadastro').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var senha = document.getElementById('senhaCadastro').value;
+      var confirmSenha = document.getElementById('confirmSenha').value;
+
+      if (senha !== confirmSenha) {
+        alert('As senhas não coincidem');
+        return;
+      }
+
+      window.location.href = 'logado.html';
+    });
+  </script>
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+</body>
+</html>
